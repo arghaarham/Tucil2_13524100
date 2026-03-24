@@ -63,6 +63,10 @@ java -cp bin ViewerMain
    - **Klik & Drag (Tahan Kiri)**: Untuk melakukan rotate.
    - **Scroll Wheel**: Untuk melakukan zoom in/out.
      <br />
+     <br />
+     **Note:** Untuk results .obj yang memiliki max depth = 8 terdapat dalam file .zip dikarenakan size file yang terlalu besar
+
+<br />
 
 **Arghawisesa Dwinanda Arham** - **13524100**
-_(Tucil 2 Strategi Algoritma IF2211 - ITB 2025/2026)_
+_(Tucil 2 Strategi Algoritma IF2211 Institut Teknologi Bandung 2025/2026)_

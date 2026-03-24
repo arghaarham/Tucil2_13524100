@@ -74,6 +74,11 @@ public class Renderer {
             g.setColor(new Color(100, 100, 110));
             g.drawString(msg, (W - fm.stringWidth(msg)) / 2, H / 2);
         }
+
+        g.setFont(new Font("Monospaced", Font.PLAIN, 11));
+        g.setColor(new Color(140, 140, 140));
+        String idText = "Arghawisesa Dwinanda Arham - 13524100";
+        g.drawString(idText, W - g.getFontMetrics().stringWidth(idText) - 8, H - 10);
     }
 
     // iterasi semua segitiga, proyeksikan, rasterisasi ke pixel/z buffer

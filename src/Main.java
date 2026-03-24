@@ -40,7 +40,7 @@ public class Main{
 
             octree.build(triangle, bBox);
 
-            String outPath = inPath.replace(".obj", "-voxelized.obj");
+            String outPath = inPath.replace(".obj", "-voxelized-maxdepth-" + maxDepth + ".obj");
             VoxelWriter writer = new VoxelWriter();
             writer.write(octree.leafNode, outPath);
 

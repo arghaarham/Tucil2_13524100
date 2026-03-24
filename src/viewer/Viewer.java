@@ -68,25 +68,50 @@ public class Viewer extends JFrame {
 
     // tampilkan dialog pilih file, lalu muat di background thread
     private void bukaFile() {
-        JFileChooser fc = new JFileChooser();
-        fc.setFileFilter(new FileNameExtensionFilter("OBJ Files (*.obj)", "obj"));
-        fc.setDialogTitle("Pilih file .obj");
-        if (fc.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
-            return;
+        Object[] options = {"Pilih dari Folder", "Paste Path File"};
+        int choice = JOptionPane.showOptionDialog(this,
+                "Pilih cara membuka file .obj:",
+                "Buka File",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
 
-        String path = fc.getSelectedFile().getAbsolutePath();
-        String fname = fc.getSelectedFile().getName();
+        String path = null;
+        String fname = null;
+
+        if (choice == 0) {
+            JFileChooser fc = new JFileChooser();
+            fc.setFileFilter(new FileNameExtensionFilter("OBJ Files (*.obj)", "obj"));
+            fc.setDialogTitle("Pilih file .obj");
+            if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                path = fc.getSelectedFile().getAbsolutePath();
+                fname = fc.getSelectedFile().getName();
+            }
+        } else if (choice == 1) {
+            String input = JOptionPane.showInputDialog(this, "Masukkan path absolut atau relatif file .obj:");
+            if (input != null && !input.trim().isEmpty()) {
+                path = input.trim();
+                fname = new java.io.File(path).getName();
+            }
+        }
+
+        if (path == null) return;
+
+        final String finalPath = path;
+        final String finalFname = fname;
 
         // nonaktifkan tombol dan tampilkan status memuat
         btnBuka.setEnabled(false);
-        lblInfo.setText("Memuat " + fname + " ...");
+        lblInfo.setText("Memuat " + finalFname + " ...");
 
         // parsing di background agar GUI tidak freeze (terutama model besar)
         SwingWorker<ObjLoader, Void> worker = new SwingWorker<>() {
             @Override
             protected ObjLoader doInBackground() throws Exception {
                 ObjLoader loader = new ObjLoader();
-                loader.load(path);
+                loader.load(finalPath);
                 return loader;
             }
 
@@ -120,8 +145,8 @@ public class Viewer extends JFrame {
                     cam.reset(ctr, dist);
                     rend.setModel(tris);
 
-                    lblInfo.setText(fname + "   (" + tris.size() + " segitiga, " + verts.size() + " vertex)");
-                    setTitle("OBJ Viewer — " + fname);
+                    lblInfo.setText(finalFname + "   (" + tris.size() + " segitiga, " + verts.size() + " vertex)");
+                    setTitle("OBJ Viewer — " + finalFname);
                     canvas.repaint();
 
                 } catch (InterruptedException | ExecutionException ex) {
