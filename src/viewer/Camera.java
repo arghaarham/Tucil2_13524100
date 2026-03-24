@@ -14,6 +14,15 @@ public class Camera {
     double[] rgt = new double[3]; // arah kanan kamera
     double[] up  = new double[3]; // arah atas kamera
 
+    // reset kamera saat file baru dibuka
+    public void reset(Vector3 newCtr, double newDist) {
+        ctr   = newCtr;
+        dist  = newDist;
+        yaw   = 0.5;
+        pitch = 0.3;
+        refresh();
+    }
+
     public Camera(Vector3 ctr, double dist) {
         this.ctr   = ctr;
         this.dist  = dist;
