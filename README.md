@@ -63,7 +63,8 @@ java -cp bin ViewerMain
    - **Klik & Drag (Tahan Kiri)**: Untuk melakukan rotate.
    - **Scroll Wheel**: Untuk melakukan zoom in/out.
      <br />
-     <br />
+
+<br />
      **Note:** Untuk results .obj yang memiliki max depth = 8 terdapat dalam file .zip dikarenakan size file yang terlalu besar
 
 <br />
