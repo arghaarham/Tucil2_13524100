@@ -72,6 +72,4 @@ java -cp bin ViewerMain
 
 **Arghawisesa Dwinanda Arham** - **13524100**
 
-<br />
-
 _(Tucil 2 Strategi Algoritma IF2211 Institut Teknologi Bandung 2025/2026)_
