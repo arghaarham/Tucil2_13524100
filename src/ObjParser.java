@@ -45,6 +45,17 @@ public class ObjParser{
     private void parseVertex(String[] part, int nLine){
         if (part.length < 4){
             throw new IllegalArgumentException("ERROR | Format vertex tidak valid di baris-" + nLine);
+        }
+
+        double x = Double.parseDouble(part[1]);
+        double y = Double.parseDouble(part[2]);
+        double z = Double.parseDouble(part[3]);
+        vertice.add(new Vector3(x, y, z));
+    }
+
+    private void parseFace(String[] part, int nLine){
+        if (part.length < 4){
+            throw new IllegalArgumentException("ERROR | Format vertex tidak valid di baris-" + nLine);
         };
 
         int i0 = parseFaceIndex(part[1]) - 1;

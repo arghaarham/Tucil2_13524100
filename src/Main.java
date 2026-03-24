@@ -34,6 +34,7 @@ public class Main{
             List<Triangle> triangle = parser.triangle;
             System.out.println("SUCCESS | Berhasil baca " + triangle.size() + " triangle.");
 
+
             Octree octree = new Octree(maxDepth);
             Box bBox = octree.buildBBox(parser.vertice);
 
@@ -45,7 +46,7 @@ public class Main{
 
             long end = System.currentTimeMillis();
 
-            int totalVoxel = octree.leafNodes.size();
+            int totalVoxel = octree.leafNode.size();
             int totalVertice = totalVoxel * 8;
             int totalFace = totalVoxel * 12;
 
@@ -55,13 +56,17 @@ public class Main{
             System.out.println("Jumlah Face: " + totalFace);
             System.out.println("Kedalaman: " + maxDepth);
             System.out.println("Node Per Depth:");
-            for (int i = 0; i < maxDepth; i++) {
+            for (int i = 0; i <= maxDepth; i++) {
+                System.out.println(i + ": " + octree.nNode[i].get());
+            }
+            System.out.println("Node yang Diskip Per Depth:");
+            for (int i = 0; i <= maxDepth; i++) {
                 System.out.println(i + ": " + octree.nSkip[i]);
             }
             System.out.println("Waktu Eksekusi: " + (end - start) + "ms");
             System.out.println("Output disimpan: " + outPath);
-        } carch (Exception e){
-            System.out.println("ERROR | " + e.getMessafe());
+        } catch (Exception e){
+            System.out.println("ERROR | " + e.getMessage());
         }
     }
 }
