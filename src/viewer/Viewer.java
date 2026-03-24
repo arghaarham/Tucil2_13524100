@@ -9,16 +9,16 @@ import model.Triangle;
 import model.Vector3;
 
 public class Viewer extends JFrame {
-    private final Camera   cam;
+    private final Camera cam;
     private final Renderer rend;
-    private final JPanel   canvas;
-    private final JButton  btnBuka;
-    private final JLabel   lblInfo;
+    private final JPanel canvas;
+    private final JButton btnBuka;
+    private final JLabel lblInfo;
 
     public Viewer() {
-        super("OBJ Viewer — Tucil 2 IF2211");
+        super("OBJ Viewer");
 
-        cam  = new Camera(new Vector3(0, 0, 0), 1.0);
+        cam = new Camera(new Vector3(0, 0, 0), 1.0);
         rend = new Renderer(null, cam);
 
         // -- toolbar atas --
@@ -57,7 +57,7 @@ public class Viewer extends JFrame {
 
         setLayout(new BorderLayout());
         add(toolbar, BorderLayout.NORTH);
-        add(canvas,  BorderLayout.CENTER);
+        add(canvas, BorderLayout.CENTER);
 
         setPreferredSize(new Dimension(900, 680));
         pack();
@@ -71,9 +71,10 @@ public class Viewer extends JFrame {
         JFileChooser fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter("OBJ Files (*.obj)", "obj"));
         fc.setDialogTitle("Pilih file .obj");
-        if (fc.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
+        if (fc.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
+            return;
 
-        String path  = fc.getSelectedFile().getAbsolutePath();
+        String path = fc.getSelectedFile().getAbsolutePath();
         String fname = fc.getSelectedFile().getName();
 
         // nonaktifkan tombol dan tampilkan status memuat
@@ -94,13 +95,13 @@ public class Viewer extends JFrame {
                 btnBuka.setEnabled(true);
                 try {
                     ObjLoader loader = get();
-                    List<Triangle> tris  = loader.triangle;
-                    List<Vector3>  verts = loader.vertice;
+                    List<Triangle> tris = loader.triangle;
+                    List<Vector3> verts = loader.vertice;
 
                     if (tris.isEmpty()) {
                         JOptionPane.showMessageDialog(Viewer.this,
-                            "Tidak ada segitiga yang terbaca di file ini.",
-                            "Peringatan", JOptionPane.WARNING_MESSAGE);
+                                "Tidak ada segitiga yang terbaca di file ini.",
+                                "Peringatan", JOptionPane.WARNING_MESSAGE);
                         lblInfo.setText("Gagal memuat: tidak ada segitiga");
                         return;
                     }
@@ -108,10 +109,13 @@ public class Viewer extends JFrame {
                     // hitung bounding box → posisi dan jarak kamera awal
                     Vector3 mn = new Vector3(verts.get(0).x, verts.get(0).y, verts.get(0).z);
                     Vector3 mx = new Vector3(verts.get(0).x, verts.get(0).y, verts.get(0).z);
-                    for (Vector3 v : verts) { mn = mn.min(v); mx = mx.max(v); }
-                    Vector3 ctr  = mn.mid(mx);
-                    double  diag = diagLen(mn, mx);
-                    double  dist = diag * 1.5 + 1e-3;
+                    for (Vector3 v : verts) {
+                        mn = mn.min(v);
+                        mx = mx.max(v);
+                    }
+                    Vector3 ctr = mn.mid(mx);
+                    double diag = diagLen(mn, mx);
+                    double dist = diag * 1.5 + 1e-3;
 
                     cam.reset(ctr, dist);
                     rend.setModel(tris);
@@ -123,8 +127,8 @@ public class Viewer extends JFrame {
                 } catch (InterruptedException | ExecutionException ex) {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
                     JOptionPane.showMessageDialog(Viewer.this,
-                        "Gagal membuka file:\n" + cause.getMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                            "Gagal membuka file:\n" + cause.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
                     lblInfo.setText("Gagal memuat file");
                 }
             }
@@ -134,7 +138,7 @@ public class Viewer extends JFrame {
 
     // panjang diagonal bounding box
     private static double diagLen(Vector3 a, Vector3 b) {
-        double dx = b.x-a.x, dy = b.y-a.y, dz = b.z-a.z;
-        return Math.sqrt(dx*dx + dy*dy + dz*dz);
+        double dx = b.x - a.x, dy = b.y - a.y, dz = b.z - a.z;
+        return Math.sqrt(dx * dx + dy * dy + dz * dz);
     }
 }
