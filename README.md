@@ -66,7 +66,7 @@ java -cp bin ViewerMain
 
 <br />
 
-     **Note:** Untuk results .obj yang memiliki max depth = 8 terdapat dalam file .zip dikarenakan size file yang terlalu besar
+**Note:** Untuk results .obj yang memiliki max depth = 8 terdapat dalam file .zip dikarenakan size file yang terlalu besar
 
 <br />
 
